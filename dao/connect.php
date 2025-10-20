@@ -2,18 +2,23 @@
 
 
 function connectarBanco() {
-    $host = "localhost";
-    $user = "root";
-    $pass = "";
-    $base = "forum";
-    $conn = mysqli_connect($host, $user, $pass, $base);
+    try {
+        $host = "localhost";
+        $user = "root";
+        $pass = "";
+        $base = "forum";
+        $conn = mysqli_connect($host, $user, $pass, $base);
 
-    if(mysqli_error()) {
-        echo "Falha no conexão no servidor: " . $host . ":".mysqli_error() . "\n";
-        log_erro($e);
-        $conn = null;
+        if(mysqli_connect_error()) {
+            $e = "Falha no conexão no servidor: " . $host . ": ". mysqli_error() . "\n";
+            logErro($e);
+            $conn = null;
+        }
+        return $conn;
+    } catch (\Throwable $th) {
+        logErro($th);
     }
-    return $conn;
+    
 }
 
 function iniciarTransacao($conn) {

@@ -14,12 +14,11 @@ restore_error_handler();
 
 
 
-function log_erro($e){
-	$name = "./log_error/Log-". date("Ymd").".txt";
+function logErro($e){
+	$dir = "./log-error/";
+	$name = $dir . "Log-" . date("Ymd") . ".txt";
 	$file = fopen($name, 'a+');
-	$text = date("Y-m-d H:i:s")."==>Falha de execução:\n". $e . "\n\n";
+	$text = date("Y-m-d H:i:s")." ==> Falha de execução:\n". $e . "\n\n";
 	fwrite($file, $text);
 	fclose($file);
-	//echo $text . "<br />";
 }
-?>
