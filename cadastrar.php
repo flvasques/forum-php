@@ -8,11 +8,13 @@
 
      if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $usuario = new Usuario();
-        if ($usuario->login($_POST['email'], $_POST['password'])) {
+        $usuario->nome = htmlspecialchars($_POST['nome']);
+        $usuario->email = htmlspecialchars($_POST['email']);
+        if ($usuario->salvar()) {
             $_SESSION['usr'] = $usuario;
-            header('location:index.php');
+           header('location:meus-dados.php');
         } else {
-            $error = "Usuário ou senha incorretos.";
+            $error = "Falha ao Realizar cadatro.";
         }
     }
 
@@ -24,8 +26,15 @@
         <div class="col s12 m6">
             <div class="card">
                 <div class="card-content">
+                    <h5 class="card-title">Cadastrar</h5>
                     <div class="row">
-                        <form action="login.php" method="POST">
+                        <form action="cadastrar.php" method="POST">
+                            <div class="input-field col s6 offset-s3">
+                                <input id="nome" name="nome" type="text" class="validate <?php if (!empty($error)) { echo 'invalid'; } ?>"
+                                value = "<?php echo $_POST['nome'] ?? ''; ?>"
+                                required />
+                                <label for="nome">Nome Completo</label>
+                            </div>
                             <div class="input-field col s6 offset-s3">
                                 <input id="email" name="email" type="email" class="validate <?php if (!empty($error)) { echo 'invalid'; } ?>"
                                 value = "<?php echo $_POST['email'] ?? ''; ?>"
@@ -34,9 +43,15 @@
                             </div>
                             <div class="input-field col s6 offset-s3">
                                 <input id="password" name="password" type="password" class="validate <?php if (!empty($error)) { echo 'invalid'; } ?>"
-                                    value = ""
+                                    value = "<?php echo $_POST['password'] ?? ''; ?>"
                                     required />
                                 <label for="password">Senha</label>
+                            </div>
+                            <div class="input-field col s6 offset-s3">
+                                <input id="repeat_password" name="repeat_password" type="password" class="validate <?php if (!empty($error)) { echo 'invalid'; } ?>"
+                                    value = "<?php echo $_POST['repeat_password'] ?? ''; ?>"
+                                    required />
+                                <label for="repeat_password">Repita Senha</label>
                             </div>
                             <div class="row col s12">
                                 <?php
@@ -49,8 +64,8 @@
                             <div class="row">
                                 <div class="col s2 offset-s8">
                                     <button class="btn waves-effect waves-light" type="submit" name="action">
-                                        Login
-                                        <i class="material-icons right">send</i>
+                                        Cadastrar
+                                        <i class="material-icons right">done</i>
                                     </button>
                                 </div>
                             </div>

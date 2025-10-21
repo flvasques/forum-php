@@ -16,6 +16,9 @@ restore_error_handler();
 
 function logErro($e){
 	$dir = "./log-error/";
+	if (!is_dir($dir)) {
+        mkdir($dir, 0755, true); // Cria o diretório se não existir
+    }
 	$name = $dir . "Log-" . date("Ymd") . ".txt";
 	$file = fopen($name, 'a+');
 	$text = date("Y-m-d H:i:s")." ==> Falha de execução:\n". $e . "\n\n";

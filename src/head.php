@@ -10,14 +10,15 @@
     <body >
         <nav>
             <div class="nav-wrapper teal lighten-2">
-                <a href="#" class="brand-logo">Forum - PHP</a>
+                <a href="/forum-php" class="brand-logo">Forum - PHP</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <?php
                         if (empty($_SESSION['usr'])) {
                             echo '<li><a href="login.php">Login</a></li>';
-                            echo '<li><a href="sass.html">Cadastrar</a></li>';
+                            echo '<li><a href="cadastrar.php">Cadastrar</a></li>';
                         } else {
-                            echo '<li><a href="sass.html">' . $_SESSION['usr']->nome . '</a></li>';
+                            echo '<li><a href="publicacao.php"> <b>NOVA PUBLICAÇÃO</b> </a></li>';
+                            echo '<li><a href="meus-dados.php">' . $_SESSION['usr']->nome . '</a></li>';
                             echo '<li><a href="logout.php">Logout</a></li>';
                         }
                     ?>

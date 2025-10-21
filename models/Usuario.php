@@ -11,7 +11,8 @@
 
         public function login(string $email, string $senha): bool
         {
-            $usr = parent::buscar("email = '$email'");
+            $email = htmlspecialchars($email);
+            $usr = parent::buscar(filtro: "email = '$email'");
             if(!empty($usr)) {
                 $this->id = $usr->id;
                 $this->nome = $usr->nome;
@@ -22,6 +23,11 @@
             } else {
                 return false;
             }
+        }
+
+        public function getPrimeiroNome(): string
+        {
+            return explode(" ", $this->nome)[0];
         }
        
     }

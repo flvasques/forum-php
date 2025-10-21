@@ -21,20 +21,6 @@ function connectarBanco() {
     
 }
 
-function iniciarTransacao($conn) {
-    mysqli_begin_transaction($conn, MYSQLI_TRANS_START_READ_WRITE);
-    mysqli_autocommit($conn, FALSE);
-    return $conn;
-}
-
-function commit($conn) {
-    mysqli_commit($conn);
-}
-
-function rollBack($conn) {
-    mysqli_rollback($conn);
-}
-
 function desconnectarBanco($conn) {
     mysqli_close($conn);
 }
